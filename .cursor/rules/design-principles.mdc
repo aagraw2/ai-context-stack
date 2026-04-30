@@ -1,0 +1,38 @@
+---
+description: SOLID and clean code
+globs: ["**/*.java"]
+alwaysApply: true
+---
+
+# Design Principles
+
+## Always
+- One reason to change per class
+- Depend on abstractions
+- Inject via constructor
+- Fail fast with clear errors
+- Make illegal states unrepresentable
+
+## Avoid
+- God classes (>200 lines = smell)
+- Deep inheritance hierarchies
+- Mutable shared state
+- Primitive obsession (use value objects)
+- Feature envy
+
+## Red Flags
+- Class named "Manager", "Handler", "Processor"
+- Constructor with 5+ params
+- Method with boolean flag param
+- Catch-all exception handlers
+
+## Quick Check
+Before adding code:
+1. Does class have single purpose?
+2. Would change here break elsewhere?
+3. Can this be unit tested alone?
+4. Are dependencies explicit?
+
+## Reference
+- `knowledge/fundamentals/SOLID.md`
+- `knowledge/anti-patterns/`

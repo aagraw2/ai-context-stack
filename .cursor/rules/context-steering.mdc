@@ -1,0 +1,37 @@
+---
+description: Context fetching priority
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Context Steering
+
+## Fetch Priority
+1. Interface definitions first
+2. Domain models / entities
+3. Existing patterns in codebase
+4. Test files for expected behavior
+5. Implementation details last
+
+## Do NOT Fetch
+- Entire files when only method needed
+- Implementation of external libs
+- Unrelated modules
+- Generated code
+
+## Before Fetching Context
+Ask:
+- Which entity/service is this about?
+- What interface defines the contract?
+- Is there existing pattern to follow?
+
+## Knowledge Base Priority
+1. `knowledge/capsules/` - Quick reference
+2. `knowledge/patterns/_summary.md` - Pattern lookup
+3. `knowledge/fundamentals/_summary.md` - Principle check
+4. Full docs only when summary insufficient
+
+## File Relevance
+High: Interfaces, domain models, factories
+Medium: Services, repositories
+Low: DTOs, mappers, config

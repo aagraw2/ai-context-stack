@@ -1,0 +1,39 @@
+---
+description: Pattern selection
+globs: ["**/*.java"]
+alwaysApply: false
+---
+
+# Design Patterns
+
+## Always
+- Check if pattern exists in codebase
+- Name the pattern when applying
+- Explain why it fits the problem
+- Keep it simple - pattern isn't always needed
+
+## Avoid
+- Pattern for pattern's sake
+- Forcing patterns onto simple code
+- Using Singleton (use DI instead)
+- Abstract Factory when Factory suffices
+
+## Common Patterns
+
+| Problem | Pattern |
+|---------|---------|
+| Object with many optional fields | Builder |
+| Create objects without exposing concrete class | Factory |
+| Multiple algorithms, swap at runtime | Strategy |
+| Object behavior changes with state | State |
+| Notify multiple objects of changes | Observer |
+| Undo/redo, command queue | Command |
+
+## Pattern Smells
+- Factory returning same type always
+- Strategy with single implementation
+- Observer with single listener
+
+## Reference
+- `knowledge/patterns/`
+- `knowledge/capsules/builder-vs-factory.md`

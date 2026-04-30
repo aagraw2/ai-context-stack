@@ -1,0 +1,37 @@
+---
+description: approach - architecture before code
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Approach
+
+## Always
+- Clarify requirements first
+- Identify entities and relationships
+- Define interfaces before implementations
+- Start with domain model
+- Justify every class added
+
+## Avoid
+- Jumping to code immediately
+- Over-engineering for scale
+- Adding patterns without reason
+- Premature optimization
+
+## Flow
+1. Requirements → What are we building?
+2. Entities → What are the core objects?
+3. Relationships → How do they interact?
+4. Interfaces → What contracts exist?
+5. Implementation → Fill in the details
+
+## Quick Checks
+- Single responsibility per class?
+- Dependencies injected, not created?
+- Interfaces for external dependencies?
+- Composition over inheritance?
+
+## Reference
+- `knowledge/fundamentals/`
+- `knowledge/tradeoffs/`
