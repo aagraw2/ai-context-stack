@@ -1,93 +1,105 @@
 # AIContextStack
 
-A structured knowledge system to improve how LLMs like Claude and Cursor consume context.
-
-Instead of passing large amounts of unstructured information into prompts, this system organizes knowledge into multiple layers and focuses on selecting only the most relevant context for a given problem.
-
-This leads to:
-
-* Lower token usage
-* Faster responses
-* Better signal to noise ratio
-* More consistent system design outputs
-
----
+A structured knowledge system to improve how LLMs consume context — with **one source of truth** in `knowledge/` and thin adapters per tool.
 
 ## Core idea
 
-LLMs are powerful, but their effectiveness depends heavily on the quality of the context they receive.
+LLM quality depends on **which** context you provide, not how much. This repo organizes design knowledge into layers and selects only what a problem needs.
 
-In most AI-assisted workflows, the main bottleneck is not generation. It is:
+Benefits:
 
-* Selecting the right information
-* Avoiding irrelevant context
-* Managing token and latency costs
-
-This repository treats context selection as a system design problem.
-
----
-
-## Structure
-
-The knowledge is organized into the following layers:
-
-* Fundamentals: core concepts and principles
-* Capsules: reusable, atomic knowledge units
-* Patterns: higher-level system design patterns
-* Tradeoffs: decision-making guidance
-* Anti-patterns: common pitfalls and failure modes
-* Case studies: real-world applications
-* Prompts: interaction layer for LLM usage
-
-An indexing layer (`_index.md`) maps problems to relevant concepts.
+- Lower token usage
+- Faster responses
+- Better signal-to-noise
+- Consistent outputs across Claude, Cursor, and OpenAI Codex
 
 ---
 
-## How it works
+## Layout
 
-1. Start with a problem, for example designing a notification system
-2. Use the index to identify relevant concepts and patterns
-3. Select only the necessary files instead of the entire knowledge base
-4. Provide that focused context to the LLM
-5. Iterate based on gaps
+```
+knowledge/                 # Shared truth (content + retrieval rules)
+  _index.md
+  capsules/
+  fundamentals/
+  patterns/
+  tradeoffs/
+  anti-patterns/
+  case-studies/
+  prompts/
+    context-retrieval.md   # How every tool should fetch knowledge
 
-This avoids prompt stuffing and leads to more targeted reasoning.
+.claude/commands/          # Claude Code slash commands (orchestration only)
+.cursor/rules/             # Cursor rules (pointers to knowledge/)
+AGENTS.md                  # OpenAI Codex instructions
+CLAUDE.md                  # Claude project pointer + command list
+```
+
+**Rule:** Put principles, prompts, and retrieval logic in `knowledge/`. Adapters only route agents to those files — no duplicated rulebooks.
+
+---
+
+## Tool matrix
+
+| Tool | Auto-loaded | Workflows |
+| ---- | ----------- | --------- |
+| **Claude Code** | `CLAUDE.md` | `/select-context`, `/system-design`, `/code-review`, `/debug`, `/ai-coding` |
+| **Cursor** | `.cursor/rules/*.mdc` | Same flows via chat; rules point at `knowledge/prompts/context-retrieval.md` |
+| **OpenAI Codex** | `AGENTS.md` | Named workflows in `AGENTS.md` → `.claude/commands/*.md` |
+
+---
+
+## Flow
+
+1. Start from the user's problem (e.g. design a notification system).
+2. Follow `knowledge/prompts/context-retrieval.md` (or run `/select-context` in Claude).
+3. Use `knowledge/_index.md` to pick 2–5 relevant files — capsules first.
+4. Run the task prompt if needed (`system-design.md`, `code-review.md`, etc.).
+5. Iterate only if a gap appears; do not load the whole knowledge base.
 
 ---
 
 ## Example
 
-Query: Design a rate limiter for a distributed system
+**Query:** Design a notification system with retries and idempotency.
 
-Selected context:
+**Selected context (illustrative):**
 
-* rate-limiter (capsule)
-* caching (capsule)
-* distributed coordination (pattern)
+- `knowledge/prompts/context-retrieval.md` (rules)
+- `knowledge/capsules/concurrency-basics.md`
+- `knowledge/fundamentals/error-handling.md`
+- `knowledge/tradeoffs/layered-architecture.md`
+- `knowledge/prompts/system-design.md` (task format)
 
-Result:
+**Result:** Focused tradeoff analysis without loading all of `patterns/` or `case-studies/`.
 
-* More focused reasoning
-* Better tradeoff analysis
-* Reduced token usage
+---
+
+## Knowledge layers
+
+| Layer | Purpose |
+| ----- | ------- |
+| Fundamentals | SOLID, clean code, error handling |
+| Capsules | Reusable atomic concepts |
+| Patterns | Creational, structural, behavioral |
+| Tradeoffs | Architecture decisions |
+| Anti-patterns | Common pitfalls |
+| Case studies | Real-world examples |
+| Prompts | Task templates + context retrieval |
+
+Indexes: each area has `_index.md` or `_summary.md`; root map is `knowledge/_index.md`.
 
 ---
 
 ## Extensibility
 
-This approach can be extended using:
-
-* Rule-based selection
-* Embedding-based search
-* Vector databases
+- Rule-based selection (current)
+- Embedding search or vector DB (optional later)
 
 ---
 
 ## Why this matters
 
-This repository reflects:
-
-* Structured thinking about LLM limitations
-* Separation of storage, indexing, and retrieval
-* Focus on efficiency and scalability
-* Application of system design principles to AI workflows
+- **Separation:** storage (`knowledge/`) vs. tool wiring (`.claude/`, `.cursor/`, `AGENTS.md`)
+- **Consistency:** same retrieval rules everywhere
+- **Efficiency:** selective fetch as a first-class design choice

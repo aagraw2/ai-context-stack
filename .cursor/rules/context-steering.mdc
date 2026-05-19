@@ -1,37 +1,13 @@
 ---
-description: Context fetching priority
+description: Knowledge and codebase context selection
 globs: ["**/*"]
 alwaysApply: true
 ---
 
-# Context Steering
+# Context steering
 
-## Fetch Priority
-1. Interface definitions first
-2. Domain models / entities
-3. Existing patterns in codebase
-4. Test files for expected behavior
-5. Implementation details last
+Follow **`knowledge/prompts/context-retrieval.md`** for all knowledge selection in this repo.
 
-## Do NOT Fetch
-- Entire files when only method needed
-- Implementation of external libs
-- Unrelated modules
-- Generated code
+When the user needs a file list only, use the workflow in `.claude/commands/select-context.md`.
 
-## Before Fetching Context
-Ask:
-- Which entity/service is this about?
-- What interface defines the contract?
-- Is there existing pattern to follow?
-
-## Knowledge Base Priority
-1. `knowledge/capsules/` - Quick reference
-2. `knowledge/patterns/_summary.md` - Pattern lookup
-3. `knowledge/fundamentals/_summary.md` - Principle check
-4. Full docs only when summary insufficient
-
-## File Relevance
-High: Interfaces, domain models, factories
-Medium: Services, repositories
-Low: DTOs, mappers, config
+Do not load entire `knowledge/` folders or unrelated topics.

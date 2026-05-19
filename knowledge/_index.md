@@ -1,5 +1,7 @@
 # Knowledge Base Index
 
+**Agents:** read `prompts/context-retrieval.md` first for how to select files from this repo.
+
 Quick navigation to all knowledge areas.
 Start here, then drill into specific directories.
 
@@ -23,6 +25,7 @@ Start here, then drill into specific directories.
 | Design patterns | `patterns/_summary.md` |
 | Builder vs Factory | `capsules/builder-vs-factory.md` |
 | Class relationships | `capsules/class-relationships.md` |
+| Context selection (all tools) | `prompts/context-retrieval.md` |
 | Code review | `prompts/code-review.md` |
 | System design | `prompts/system-design.md` |
 | God class smell | `anti-patterns/god-class.md` |

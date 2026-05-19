@@ -4,35 +4,10 @@ globs: ["**/*.java"]
 alwaysApply: true
 ---
 
-# Design Principles
+# Design principles
 
-## Always
-- One reason to change per class
-- Depend on abstractions
-- Inject via constructor
-- Fail fast with clear errors
-- Make illegal states unrepresentable
+Apply rules from **`knowledge/fundamentals/_summary.md`** and **`knowledge/fundamentals/SOLID.md`**.
 
-## Avoid
-- God classes (>200 lines = smell)
-- Deep inheritance hierarchies
-- Mutable shared state
-- Primitive obsession (use value objects)
-- Feature envy
+Smells and pitfalls: **`knowledge/anti-patterns/_index.md`**.
 
-## Red Flags
-- Class named "Manager", "Handler", "Processor"
-- Constructor with 5+ params
-- Method with boolean flag param
-- Catch-all exception handlers
-
-## Quick Check
-Before adding code:
-1. Does class have single purpose?
-2. Would change here break elsewhere?
-3. Can this be unit tested alone?
-4. Are dependencies explicit?
-
-## Reference
-- `knowledge/fundamentals/SOLID.md`
-- `knowledge/anti-patterns/`
+Inject dependencies via constructor; fail fast; one reason to change per class.

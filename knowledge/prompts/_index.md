@@ -1,13 +1,21 @@
 # Prompt Templates
 
-Structured prompts for engineering tasks.
-Fetch to guide AI interactions for specific activities.
+Structured prompts and shared retrieval rules for AI-assisted engineering tasks.
 
-## Available Files
+## Start here
 
-| File | Use For |
-|------|---------|
-| `ai-coding.md` | Guidelines for AI-assisted code generation |
-| `code-review.md` | Structured code review checklist |
-| `debugging.md` | Systematic debugging approach |
-| `system-design.md` | System design review process |
+| File | Use for |
+| ---- | ------- |
+| `context-retrieval.md` | **All tools** — how to select knowledge from this repo |
+| `ai-coding.md` | AI-assisted code generation |
+| `code-review.md` | Structured code review |
+| `debugging.md` | Systematic debugging |
+| `system-design.md` | System design review |
+
+## Tool adapters (not shared truth)
+
+| Tool | Entry point |
+| ---- | ----------- |
+| Claude Code | `CLAUDE.md`, `.claude/commands/` |
+| Cursor | `.cursor/rules/` |
+| OpenAI Codex | `AGENTS.md` |
